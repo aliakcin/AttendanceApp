@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-expo-app@latest mobile --template blank-typescript)",
+      "Bash(npx @nestjs/cli@latest new backend --package-manager npm --skip-git)",
+      "Bash(wait:*)",
+      "Bash(npx expo:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(brew list:*)",
+      "Bash(pg_isready)",
+      "Bash(lsof -ti:8081)",
+      "Bash(xargs kill:*)",
+      "Bash(lsof -ti:19000)",
+      "Bash(pkill -f 'expo start')",
+      "Bash(curl:*)",
+      "Bash(node -e \"console.log\\(''node works''\\)\")",
+      "Bash(node:*)",
+      "Bash(node -e \"console.log\\(require\\(''expo/package.json''\\).version\\)\")",
+      "Bash(npm ls:*)",
+      "Bash(npm info:*)",
+      "Bash(npm view:*)",
+      "Bash(node -e \"console.log\\(require\\(''/Users/meteakcin/Desktop/AttendanceApp/mobile/node_modules/expo/package.json''\\).version\\)\")",
+      "Bash(node -e \"require\\(''''@expo/cli/build/src/start/index.js''''\\)\")"
+    ]
+  }
+}
