@@ -1,21 +1,21 @@
+
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
 import { colors } from '../../theme/colors';
 
 export default function AdminDashboard() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.welcome}>Welcome, {user?.fullName}</Text>
-        <TouchableOpacity onPress={logout}>
-          <Text style={styles.logout}>Logout</Text>
-        </TouchableOpacity>
+      <View style={styles.heroCard}>
+        <Text style={styles.heroEyebrow}>Welcome back</Text>
+        <Text style={styles.heroTitle}>{user?.fullName}</Text>
+        <Text style={styles.heroSub}>Manage classes, students, and teachers from one place.</Text>
       </View>
 
-      <Text style={styles.sectionTitle}>Admin Dashboard</Text>
+      <Text style={styles.sectionTitle}>Quick Access</Text>
 
       <View style={styles.cards}>
         <View style={styles.card}>
@@ -39,21 +39,23 @@ export default function AdminDashboard() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background, padding: 16 },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
-    marginTop: 8,
+  container: { flex: 1, backgroundColor: colors.background, padding: 16, paddingTop: 8 },
+  heroCard: {
+    backgroundColor: colors.card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 16,
+    marginBottom: 18,
   },
-  welcome: { fontSize: 18, fontWeight: '600', color: colors.text },
-  logout: { fontSize: 14, color: colors.danger, fontWeight: '600' },
-  sectionTitle: { fontSize: 22, fontWeight: 'bold', color: colors.text, marginBottom: 16 },
+  heroEyebrow: { fontSize: 13, fontWeight: '600', color: colors.textLight, marginBottom: 4 },
+  heroTitle: { fontSize: 24, fontWeight: '700', color: colors.text },
+  heroSub: { fontSize: 14, color: colors.textLight, marginTop: 4, lineHeight: 20 },
+  sectionTitle: { fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 12 },
   cards: { gap: 12 },
   card: {
     backgroundColor: colors.card,
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 20,
     borderWidth: 1,
     borderColor: colors.border,

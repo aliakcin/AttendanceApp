@@ -41,40 +41,44 @@ export default function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.inner}>
-        <Text style={styles.title}>Attendance App</Text>
-        <Text style={styles.subtitle}>Sign in to continue</Text>
+        <View style={styles.brandBlock}>
+          <Text style={styles.title}>Attendance App</Text>
+          <Text style={styles.subtitle}>Sign in to continue</Text>
+        </View>
 
-        {error ? <Text style={styles.error}>{error}</Text> : null}
+        <View style={styles.formCard}>
+          {error ? <Text style={styles.error}>{error}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          placeholderTextColor={colors.textLight}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          placeholderTextColor={colors.textLight}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            placeholderTextColor={colors.textLight}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            placeholderTextColor={colors.textLight}
+          />
 
-        <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
-          onPress={handleLogin}
-          disabled={loading}
-        >
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.buttonText}>Sign In</Text>
-          )}
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, loading && styles.buttonDisabled]}
+            onPress={handleLogin}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Sign In</Text>
+            )}
+          </TouchableOpacity>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -90,18 +94,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 24,
   },
+  brandBlock: {
+    marginBottom: 18,
+  },
+  formCard: {
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 14,
+    padding: 18,
+  },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 34,
+    fontWeight: '700',
     color: colors.primary,
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
     color: colors.textLight,
-    textAlign: 'center',
-    marginBottom: 32,
+    textAlign: 'left',
   },
   error: {
     color: colors.danger,

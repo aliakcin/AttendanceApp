@@ -44,10 +44,18 @@ export default function ManageClasses() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.introCard}>
+        <Text style={styles.introTitle}>All Classes</Text>
+        <Text style={styles.introSub}>Open a class to assign teachers and students.</Text>
+      </View>
+
       <FlatList
         data={classes}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={classes?.length === 0 ? styles.center : undefined}
+        contentContainerStyle={[
+          styles.listContent,
+          classes?.length === 0 ? styles.center : undefined,
+        ]}
         ListEmptyComponent={<Text style={styles.empty}>No classes yet</Text>}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -109,15 +117,27 @@ export default function ManageClasses() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background },
+  container: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  introCard: {
+    marginHorizontal: 16,
+    marginBottom: 10,
+    backgroundColor: colors.card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 16,
+  },
+  introTitle: { fontSize: 20, fontWeight: '700', color: colors.text },
+  introSub: { fontSize: 14, color: colors.textLight, marginTop: 4 },
+  listContent: { paddingBottom: 98 },
   empty: { fontSize: 16, color: colors.textLight },
   card: {
     backgroundColor: colors.card,
     marginHorizontal: 16,
-    marginTop: 12,
+    marginBottom: 10,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.border,
   },

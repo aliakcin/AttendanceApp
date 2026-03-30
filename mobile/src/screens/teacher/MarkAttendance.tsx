@@ -104,10 +104,11 @@ export default function MarkAttendance() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{className}</Text>
+      <View style={styles.infoCard}>
+        <Text style={styles.classLabel}>Class</Text>
+        <Text style={styles.classTitle}>{className}</Text>
         <View style={styles.dateRow}>
-          <Text style={styles.dateLabel}>Date:</Text>
+          <Text style={styles.dateLabel}>Session Date</Text>
           <TextInput
             style={styles.dateInput}
             value={date}
@@ -125,7 +126,10 @@ export default function MarkAttendance() {
       <FlatList
         data={students}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={students?.length === 0 ? styles.center : undefined}
+        contentContainerStyle={[
+          styles.listContent,
+          students?.length === 0 ? styles.center : undefined,
+        ]}
         ListEmptyComponent={<Text style={styles.empty}>No students in this class</Text>}
         renderItem={({ item }) => (
           <View style={styles.studentRow}>
@@ -178,14 +182,23 @@ export default function MarkAttendance() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background },
+  container: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  header: { padding: 16, paddingBottom: 8 },
-  title: { fontSize: 22, fontWeight: 'bold', color: colors.text, marginBottom: 8 },
-  dateRow: { flexDirection: 'row', alignItems: 'center' },
-  dateLabel: { fontSize: 15, color: colors.textLight, marginRight: 8 },
-  dateInput: {
+  infoCard: {
+    marginHorizontal: 16,
+    marginBottom: 10,
     backgroundColor: colors.card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 16,
+  },
+  classLabel: { fontSize: 13, fontWeight: '600', color: colors.textLight },
+  classTitle: { fontSize: 22, fontWeight: '700', color: colors.text, marginTop: 2, marginBottom: 10 },
+  dateRow: { gap: 8 },
+  dateLabel: { fontSize: 14, color: colors.textLight, fontWeight: '600' },
+  dateInput: {
+    backgroundColor: colors.background,
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: 8,
@@ -193,7 +206,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     fontSize: 15,
     color: colors.text,
-    flex: 1,
   },
   markAllBtn: {
     backgroundColor: colors.success,
@@ -205,6 +217,7 @@ const styles = StyleSheet.create({
   },
   markAllText: { color: '#fff', fontWeight: '600', fontSize: 14 },
   empty: { fontSize: 16, color: colors.textLight },
+  listContent: { paddingBottom: 6 },
   studentRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',

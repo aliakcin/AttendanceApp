@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,19 +19,53 @@ import MarkAttendance from '../screens/teacher/MarkAttendance';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
+function HeaderLogoutButton() {
+  const { logout } = useAuth();
+
+  return (
+    <Pressable onPress={logout} hitSlop={8}>
+      <Text style={{ color: colors.danger, fontSize: 14, fontWeight: '700' }}>Logout</Text>
+    </Pressable>
+  );
+}
+
 function AdminTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textLight,
-        headerShown: false,
+        tabBarStyle: {
+          height: 62,
+          paddingTop: 6,
+          paddingBottom: 6,
+          borderTopColor: colors.border,
+          backgroundColor: colors.card,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
+        },
+        headerShown: true,
+        headerStyle: { backgroundColor: colors.card },
+        headerTitleStyle: {
+          fontSize: 20,
+          fontWeight: '700',
+          color: colors.text,
+        },
+        headerTitleAlign: 'left',
+        headerShadowVisible: false,
+        headerRight: () => <HeaderLogoutButton />,
       }}
     >
-      <Tab.Screen name="Dashboard" component={AdminDashboard} options={{ tabBarLabel: 'Home' }} />
-      <Tab.Screen name="Classes" component={ManageClasses} />
-      <Tab.Screen name="Students" component={ManageStudents} />
-      <Tab.Screen name="Teachers" component={ManageTeachers} />
+      <Tab.Screen
+        name="Dashboard"
+        component={AdminDashboard}
+        options={{ tabBarLabel: 'Home', title: 'Dashboard' }}
+      />
+      <Tab.Screen name="Classes" component={ManageClasses} options={{ title: 'Classes' }} />
+      <Tab.Screen name="Students" component={ManageStudents} options={{ title: 'Students' }} />
+      <Tab.Screen name="Teachers" component={ManageTeachers} options={{ title: 'Teachers' }} />
     </Tab.Navigator>
   );
 }
@@ -49,7 +83,20 @@ export default function AppNavigator() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerTintColor: colors.primary }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerTintColor: colors.primary,
+          headerStyle: { backgroundColor: colors.card },
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: '700',
+            color: colors.text,
+          },
+          headerTitleAlign: 'left',
+          headerShadowVisible: false,
+          contentStyle: { backgroundColor: colors.background },
+        }}
+      >
         {!user ? (
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         ) : user.role === 'admin' ? (
@@ -62,7 +109,10 @@ export default function AppNavigator() {
             <Stack.Screen
               name="ClassDetail"
               component={ClassDetail}
-              options={({ route }) => ({ title: (route.params as any)?.className || 'Class' })}
+              options={({ route }) => ({
+                title: (route.params as any)?.className || 'Class',
+                headerRight: () => <HeaderLogoutButton />,
+              })}
             />
           </>
         ) : (
@@ -70,12 +120,18 @@ export default function AppNavigator() {
             <Stack.Screen
               name="TeacherHome"
               component={MyClasses}
-              options={{ headerShown: false }}
+              options={{
+                title: 'My Classes',
+                headerRight: () => <HeaderLogoutButton />,
+              }}
             />
             <Stack.Screen
               name="MarkAttendance"
               component={MarkAttendance}
-              options={({ route }) => ({ title: 'Mark Attendance' })}
+              options={({ route }) => ({
+                title: (route.params as any)?.className || 'Mark Attendance',
+                headerRight: () => <HeaderLogoutButton />,
+              })}
             />
           </>
         )}

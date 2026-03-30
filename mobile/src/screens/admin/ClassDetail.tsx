@@ -70,9 +70,11 @@ export default function ClassDetail() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{className}</Text>
+      <View style={styles.summaryCard}>
+        <Text style={styles.summaryLabel}>Class</Text>
+        <Text style={styles.summaryTitle}>{className}</Text>
+      </View>
 
-      {/* Teachers section */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Teachers</Text>
@@ -94,7 +96,6 @@ export default function ClassDetail() {
         )}
       </View>
 
-      {/* Students section */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Students</Text>
@@ -116,7 +117,6 @@ export default function ClassDetail() {
         )}
       </View>
 
-      {/* Teacher Picker Modal */}
       <Modal visible={showTeacherPicker} transparent animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modal}>
@@ -144,7 +144,6 @@ export default function ClassDetail() {
         </View>
       </Modal>
 
-      {/* Student Picker Modal */}
       <Modal visible={showStudentPicker} transparent animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modal}>
@@ -176,8 +175,17 @@ export default function ClassDetail() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background, padding: 16 },
-  title: { fontSize: 22, fontWeight: 'bold', color: colors.text, marginBottom: 20 },
+  container: { flex: 1, backgroundColor: colors.background, padding: 16, paddingTop: 8 },
+  summaryCard: {
+    backgroundColor: colors.card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 16,
+    marginBottom: 14,
+  },
+  summaryLabel: { fontSize: 13, color: colors.textLight, fontWeight: '600' },
+  summaryTitle: { fontSize: 22, fontWeight: '700', color: colors.text, marginTop: 2 },
   section: { marginBottom: 24 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
   sectionTitle: { fontSize: 18, fontWeight: '600', color: colors.text },

@@ -45,10 +45,18 @@ export default function ManageStudents() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.introCard}>
+        <Text style={styles.introTitle}>Student Directory</Text>
+        <Text style={styles.introSub}>Create and review student records.</Text>
+      </View>
+
       <FlatList
         data={students}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={students?.length === 0 ? styles.center : undefined}
+        contentContainerStyle={[
+          styles.listContent,
+          students?.length === 0 ? styles.center : undefined,
+        ]}
         ListEmptyComponent={<Text style={styles.empty}>No students yet</Text>}
         renderItem={({ item }) => (
           <View style={styles.card}>
@@ -109,15 +117,27 @@ export default function ManageStudents() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.background },
+  container: { flex: 1, backgroundColor: colors.background, paddingTop: 8 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  introCard: {
+    marginHorizontal: 16,
+    marginBottom: 10,
+    backgroundColor: colors.card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 16,
+  },
+  introTitle: { fontSize: 20, fontWeight: '700', color: colors.text },
+  introSub: { fontSize: 14, color: colors.textLight, marginTop: 4 },
+  listContent: { paddingBottom: 98 },
   empty: { fontSize: 16, color: colors.textLight },
   card: {
     backgroundColor: colors.card,
     marginHorizontal: 16,
-    marginTop: 12,
+    marginBottom: 10,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.border,
   },
