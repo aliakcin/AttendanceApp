@@ -3,9 +3,10 @@ import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '../contexts/AuthContext';
 import { colors } from '../theme/colors';
-import { RootStackParamList } from '../types';
+import { AdminTabParamList, RootStackParamList } from '../types';
 
 import LoginScreen from '../screens/LoginScreen';
 import AdminDashboard from '../screens/admin/AdminDashboard';
@@ -17,7 +18,7 @@ import MyClasses from '../screens/teacher/MyClasses';
 import MarkAttendance from '../screens/teacher/MarkAttendance';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<AdminTabParamList>();
 
 function HeaderLogoutButton() {
   const { logout } = useAuth();
@@ -32,9 +33,21 @@ function HeaderLogoutButton() {
 function AdminTabs() {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textLight,
+        tabBarIcon: ({ color, size }) => {
+          const iconName =
+            route.name === 'Dashboard'
+              ? 'home-outline'
+              : route.name === 'Classes'
+                ? 'book-outline'
+                : route.name === 'Students'
+                  ? 'school-outline'
+                  : 'people-outline';
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
         tabBarStyle: {
           height: 62,
           paddingTop: 6,
@@ -56,7 +69,7 @@ function AdminTabs() {
         headerTitleAlign: 'left',
         headerShadowVisible: false,
         headerRight: () => <HeaderLogoutButton />,
-      }}
+      })}
     >
       <Tab.Screen
         name="Dashboard"

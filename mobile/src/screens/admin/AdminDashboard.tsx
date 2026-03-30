@@ -1,11 +1,16 @@
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '../../contexts/AuthContext';
 import { colors } from '../../theme/colors';
+import { AdminTabParamList } from '../../types';
 
 export default function AdminDashboard() {
   const { user } = useAuth();
+  const nav = useNavigation<BottomTabNavigationProp<AdminTabParamList, 'Dashboard'>>();
 
   return (
     <View style={styles.container}>
@@ -18,21 +23,21 @@ export default function AdminDashboard() {
       <Text style={styles.sectionTitle}>Quick Access</Text>
 
       <View style={styles.cards}>
-        <View style={styles.card}>
-          <Text style={styles.cardIcon}>📚</Text>
+        <TouchableOpacity style={styles.card} onPress={() => nav.navigate('Classes')}>
+          <Ionicons name="book-outline" size={30} color={colors.primary} />
           <Text style={styles.cardTitle}>Classes</Text>
           <Text style={styles.cardDesc}>Manage classes and assignments</Text>
-        </View>
-        <View style={styles.card}>
-          <Text style={styles.cardIcon}>🎓</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.card} onPress={() => nav.navigate('Students')}>
+          <Ionicons name="school-outline" size={30} color={colors.primary} />
           <Text style={styles.cardTitle}>Students</Text>
           <Text style={styles.cardDesc}>Manage student records</Text>
-        </View>
-        <View style={styles.card}>
-          <Text style={styles.cardIcon}>👩‍🏫</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.card} onPress={() => nav.navigate('Teachers')}>
+          <Ionicons name="people-outline" size={30} color={colors.primary} />
           <Text style={styles.cardTitle}>Teachers</Text>
           <Text style={styles.cardDesc}>Manage teacher accounts</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -60,7 +65,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
-  cardIcon: { fontSize: 28, marginBottom: 8 },
   cardTitle: { fontSize: 18, fontWeight: '600', color: colors.text, marginBottom: 4 },
   cardDesc: { fontSize: 14, color: colors.textLight },
 });

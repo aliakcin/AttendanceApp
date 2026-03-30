@@ -45,3 +45,10 @@ export type RootStackParamList = {
   CreateStudent: undefined;
   CreateClass: undefined;
 };
+
+export type AdminTabParamList = {
+  Dashboard: undefined;
+  Classes: undefined;
+  Students: undefined;
+  Teachers: undefined;
+};
