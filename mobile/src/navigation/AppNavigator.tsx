@@ -36,15 +36,14 @@ function AdminTabs() {
       screenOptions={({ route }) => ({
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textLight,
-        tabBarIcon: ({ color, size }) => {
-          const iconName =
-            route.name === 'Dashboard'
-              ? 'home-outline'
-              : route.name === 'Classes'
-                ? 'book-outline'
-                : route.name === 'Students'
-                  ? 'school-outline'
-                  : 'people-outline';
+        tabBarIcon: ({ color, size, focused }) => {
+          const iconName = route.name === 'Dashboard'
+            ? focused ? 'home' : 'home-outline'
+            : route.name === 'Classes'
+              ? focused ? 'book' : 'book-outline'
+              : route.name === 'Students'
+                ? focused ? 'school' : 'school-outline'
+                : focused ? 'people' : 'people-outline';
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
